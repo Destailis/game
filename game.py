@@ -202,8 +202,8 @@ class BlueFountain(pygame.sprite.Sprite):
 class BlueFountainFloor(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super(BlueFountainFloor, self).__init__(all_sprites, blue_fountain_floor, tile_sprites)
-        self.list_image = ["wall_fountain_basin_blue_anim_f0.png", "wall_fountain_basin_blue_anim_f1.png",
-                           "wall_fountain_basin_blue_anim_f2.png"]
+        self.list_image = ['wall_fountain_basin_blue_anim_f0.png', 'wall_fountain_basin_blue_anim_f1.png',
+                           'wall_fountain_basin_blue_anim_f2.png']
         self.number = 0
         self.image = pygame.transform.scale(load_image(self.list_image[self.number % 3]), (50, 50))
         self.rect = self.image.get_rect().move(x * tile_width, y * tile_height + 30)
@@ -279,8 +279,7 @@ class Spikes(pygame.sprite.Sprite):
     def update(self):
         if int(self.time) % 100 == 0:
             self.number += 0.1
-            self.image = pygame.transform.scale(load_image(self.frames[int(self.number) % len(self.frames)]),
-                                                (50, 50))
+            self.image = pygame.transform.scale(load_image(self.frames[int(self.number) % len(self.frames)]), (50, 50))
             if int(self.number) % len(self.frames) == 0 and int(self.number) != 0:
                 self.time += 0.2
                 self.image = pygame.transform.scale(load_image('floor_spikes_f0.png'), (50, 50))
@@ -322,8 +321,8 @@ class FireBall(pygame.sprite.Sprite):
     def update(self, x):
         self.frame += 0.5
         if int(self.frame) % 5 == 0:
-            self.image = pygame.transform.scale(load_image(self.frames[int(self.frame) % len(self.frames)], -1),
-                                                (60, 60))
+            self.image = pygame.transform.scale(load_image(self.frames[int(self.frame) % len(self.frames)],
+                                                           -1), (60, 60))
         self.rect.x += x
         running = True
         while running:
@@ -539,8 +538,7 @@ def terminate():
 def start_window():
     global intro_rect, x_t, string_rendered
 
-    intro_text = ['LIZARD IN DUNGEON', '',
-                  'Нажмите ПРОБЕЛ, чтобы начать игру']
+    text = ['LIZARD IN DUNGEON', '', 'Нажмите ПРОБЕЛ, чтобы начать игру']
     score_fon = 0
     font1 = pygame.font.Font('fonts/press-start-2p-regular.ttf', 60)
     font2 = pygame.font.Font('fonts/press-start-2p-regular.ttf', 35)
@@ -554,7 +552,7 @@ def start_window():
                     main()
         screen.blit(pygame.transform.scale(load_image(f'start{score_fon % 3}.png'),
                                            (X, Y)), (0, 0))
-        for elem in intro_text:
+        for elem in text:
             if 'DUNGEON' in elem:
                 string_rendered = font1.render(elem, True, pygame.Color('white'))
                 x_t, y_t = string_rendered.get_size()
@@ -652,8 +650,8 @@ def main():
                             ending()
                 if event.key == pygame.K_e:
                     for story in story_sprites:
-                        for i in chest_sprites:
-                            if not (story.gun and not (boss_level or time_level) and not i.open and i.player):
+                        for ch in chest_sprites:
+                            if not (story.gun and not (boss_level or time_level) and not ch.open and ch.player):
                                 continue
                             if player.see == 'r':
                                 player_image = pygame.transform.scale(load_image(Player.player), (50, 100))
@@ -661,9 +659,9 @@ def main():
                                 player_image = pygame.transform.flip(
                                     pygame.transform.scale(load_image(Player.left_player), (50, 100)), True, False)
                             for k in range(10):
-                                i.anim()
-                            i.open = True
-                            gun = Knife(i.rect.x // tile_width + 0.2, i.rect.y // tile_height - 1.5)
+                                ch.anim()
+                            ch.open = True
+                            gun = Knife(ch.rect.x // tile_width + 0.2, ch.rect.y // tile_height - 1.5)
                             player.gun = gun
                             for k in range(70):
                                 gun_sprtites.draw(screen), chest_sprites.draw(screen)
@@ -849,9 +847,7 @@ def main():
             if boss.hp <= 60.0:
                 for i in all_sprites:
                     i.kill()
-                level_2 = False
-                level_3 = False
-                level_1 = True
+                level_2, level_3, level_1 = False, False, True
                 generate_level(load_level('level.txt'))
                 generate_level(load_level('decor_level.txt'))
                 story = StoryLine()
@@ -867,9 +863,7 @@ def main():
             if time == 40:
                 for i in all_sprites:
                     i.kill()
-                level_2 = False
-                level_3 = False
-                level_1 = True
+                level_2, level_3, level_1 = False, False, True
                 generate_level(load_level('level.txt'))
                 generate_level(load_level('decor_level.txt'))
                 story = StoryLine()
@@ -885,9 +879,7 @@ def main():
             if level_1:
                 for i in all_sprites:
                     i.kill()
-                level_2 = False
-                level_3 = False
-                level_1 = True
+                level_2, level_3, level_1 = False, False, True
                 generate_level(load_level('level.txt'))
                 generate_level(load_level('decor_level.txt'))
                 story = StoryLine()
@@ -919,8 +911,7 @@ def ending():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     terminate()
-        screen.blit(pygame.transform.scale(load_image(f'start{switching_fon % 3}.png'),
-                                           (X, Y)), (0, 0))
+        screen.blit(pygame.transform.scale(load_image(f'start{switching_fon % 3}.png'), (X, Y)), (0, 0))
         for line in intro_text:
             if 'GAME OVER' == line:
                 string_rendered = font1.render(line, True, pygame.Color('white'))
