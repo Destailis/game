@@ -265,9 +265,9 @@ class Knife(pygame.sprite.Sprite):
         self.rect.y = y
 
 
-class Spikes(pygame.sprite.Sprite):
+class Sheeps(pygame.sprite.Sprite):       # Sheeps типо шипы ^_^
     def __init__(self, x, y):
-        super(Spikes, self).__init__(all_sprites, tile_sprites, spikes_sprites)
+        super(Sheeps, self).__init__(all_sprites, tile_sprites, spikes_sprites)
         self.image = pygame.transform.scale(load_image('floor_spikes_f0.png'), (50, 50))
         self.rect = self.image.get_rect().move(x * tile_width, y * tile_height + 30)
         self.frames = ['floor_spikes_f0.png', 'floor_spikes_f1.png', 'floor_spikes_f2.png', 'floor_spikes_f3.png']
@@ -292,7 +292,7 @@ class Spikes(pygame.sprite.Sprite):
             if int(self.number) % len(self.frames) == 0 and int(self.number) != self.skipe:
                 if not player.damage:
                     player.hp -= 1
-                    player.damage = True
+                    player.damage = True #
 
 
 class HealfPoints(pygame.sprite.Sprite):
@@ -525,7 +525,7 @@ def generate_level(level):
             elif level[i][j] == 'Q':
                 RedFountainFloor(j, i)
             elif level[i][j] == ';':
-                Spikes(j, i)
+                Sheeps(j, i)
             elif level[i][j] in list(decor):
                 Decor(level[i][j], j, i)
 
